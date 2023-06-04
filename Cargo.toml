@@ -1,5 +1,5 @@
 [package]
-name = "hexer"
+name = "qdhex"
 version = "0.1.0"
 edition = "2021"
 description = "Simple helper functions to create hex dumps"
@@ -8,7 +8,7 @@ repository = "https://github.com/ishai42/hexdump"
 readme = "README.md"
 keywords = ["hexdump", "hex"]
 categories = ["development-tools"]
-documentation = "https://docs.rs/hexer"
+documentation = "https://docs.rs/qdhex"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
