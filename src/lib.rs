@@ -1,18 +1,18 @@
 //! This crate provides functions to create human readable hex
 //! dumps of binary data.
-//! 
+//!
 
 const HEX_DIGIT : &[u8;16]  = b"0123456789abcdef";
 
 /// Write a simple hex dump of the given data to the given target.
 /// The dump contains pairs of hex digits, separated by spaces, no
 /// line breaks, decorations, etc.
-/// 
+///
 /// # Examples
 /// ```
 /// let data = [0x00, 0x01, 0x02, 0x03];
 /// let mut target = Vec::new();
-/// hexdump::write_bare_dump_to_vec(&data, &mut target);
+/// hexer::write_bare_dump_to_vec(&data, &mut target);
 /// assert_eq!(target, b"00 01 02 03");
 /// ```
 pub fn write_bare_dump_to_vec(data: &[u8], target: &mut Vec<u8>) {
@@ -27,11 +27,11 @@ pub fn write_bare_dump_to_vec(data: &[u8], target: &mut Vec<u8>) {
 
 /// Create a simple hex dump of the given data. The dump contains pairs of
 /// hex digits, separated by spaces, no line breaks, decorations, etc.
-/// 
+///
 /// # Examples
 /// ```
 /// let data = [0x00, 0x01, 0x02, 0x03, 0x04, 0x05];
-/// let target = hexdump::bare_dump(&data);
+/// let target = hexer::bare_dump(&data);
 /// assert_eq!(target, b"00 01 02 03 04 05");
 /// ```
 pub fn bare_dump(data: &[u8]) -> Vec<u8> {
@@ -42,14 +42,14 @@ pub fn bare_dump(data: &[u8]) -> Vec<u8> {
 
 /// Create a simple hex dump of the given data. The dump contains pairs of
 /// hex digits, separated by spaces, no line breaks, decorations, etc.
-/// 
+///
 /// # Examples
 /// ```
 /// let data = [0x00, 0x01, 0x02, 0x03, 0x04, 0x05];
-/// let target = hexdump::bare_dump_string(&data);
+/// let target = hexer::bare_dump_string(&data);
 /// assert_eq!(target, "00 01 02 03 04 05");
 /// ```
-/// 
+///
 pub fn bare_dump_string(data: &[u8]) -> String {
     let vec = bare_dump(data);
     // SAFETY: The dump is always valid UTF-8 since it only contains ASCII characters
@@ -59,12 +59,12 @@ pub fn bare_dump_string(data: &[u8]) -> String {
 /// Write a formatted multi-line hex dump of the given data to the given target.
 /// Dump lines are prefixed with the given offset.  Each line contains up to 16
 /// bytes, separated by spaces, followed by a space and the ASCII representation.
-/// 
+///
 /// # Examples
 /// ```
 /// let data = &b"baadfood\xba\xad\xf0\x0dASDFasdf;lkj."[..];
 /// let mut target = Vec::new();
-/// hexdump::write_formatted_dump_to_vec(0x1000, &data, &mut target);
+/// hexer::write_formatted_dump_to_vec(0x1000, &data, &mut target);
 /// assert_eq!(target, br"1000 62 61 61 64 66 6f 6f 64 ba ad f0 0d 41 53 44 46 baadfood....ASDF
 /// 1010 61 73 64 66 3b 6c 6b 6a 2e                      asdf;lkj.
 /// ");
@@ -109,11 +109,11 @@ pub fn write_formatted_dump_to_vec(offset: u32, data: &[u8], target: &mut Vec<u8
 /// Create a formatted multi-line hex dump of the given data.
 /// Dump lines are prefixed with the given offset.  Each line contains up to 16
 /// bytes, separated by spaces, followed by a space and the ASCII representation.
-/// 
+///
 /// # Examples
 /// ```
 /// let data = &b"baadfood\xba\xad\xf0\x0dASDFasdf;lkj."[..];
-/// let target = hexdump::formatted_dump(0x1000, &data);
+/// let target = hexer::formatted_dump(0x1000, &data);
 /// assert_eq!(target, br"1000 62 61 61 64 66 6f 6f 64 ba ad f0 0d 41 53 44 46 baadfood....ASDF
 /// 1010 61 73 64 66 3b 6c 6b 6a 2e                      asdf;lkj.
 /// ");
@@ -124,16 +124,16 @@ pub fn formatted_dump(offset: u32, data: &[u8]) -> Vec<u8> {
     let mut target = Vec::with_capacity(size);
     write_formatted_dump_to_vec(offset, data, &mut target);
     target
-}  
+}
 
 /// Create a formatted multi-line hex dump of the given data.
 /// Dump lines are prefixed with the given offset.  Each line contains up to 16
 /// bytes, separated by spaces, followed by a space and the ASCII representation.
-/// 
+///
 /// # Examples
 /// ```
 /// let data = &b"baadfood\xba\xad\xf0\x0dASDFasdf;lkj."[..];
-/// let target = hexdump::formatted_dump_string(0x1000, &data);
+/// let target = hexer::formatted_dump_string(0x1000, &data);
 /// assert_eq!(target, "1000 62 61 61 64 66 6f 6f 64 ba ad f0 0d 41 53 44 46 baadfood....ASDF\n1010 61 73 64 66 3b 6c 6b 6a 2e                      asdf;lkj.\n");
 /// ```
 pub fn formatted_dump_string(offset: u32, data: &[u8]) -> String {
