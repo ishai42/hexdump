@@ -1,8 +1,16 @@
 //! This crate provides functions to create human readable hex
 //! dumps of binary data.
 //!
+#![no_std]
+const HEX_DIGIT: &[u8; 16] = b"0123456789abcdef";
 
-const HEX_DIGIT : &[u8;16]  = b"0123456789abcdef";
+extern crate alloc;
+use alloc::{
+    string::String,
+    vec::Vec,
+};
+
+
 
 /// Write a simple hex dump of the given data to the given target.
 /// The dump contains pairs of hex digits, separated by spaces, no
@@ -94,8 +102,7 @@ pub fn write_formatted_dump_to_vec(offset: u32, data: &[u8], target: &mut Vec<u8
         for byte in chunk {
             if *byte >= 0x20 && *byte <= 0x7e {
                 target.push(*byte);
-            }
-            else {
+            } else {
                 target.push(b'.');
             }
         }
